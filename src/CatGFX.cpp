@@ -5,6 +5,10 @@ CatPrinter::CatPrinter(uint16_t h):
   WIDTH_BYTE((WIDTH + 7)/8),
   SERVICE_UUID("0000AE30-0000-1000-8000-00805F9B34FB"),
   CHAR_UUID_DATA("0000AE01-0000-1000-8000-00805F9B34FB")
+// DEFAULT_ADDRESS = "48:0F:57:00:00:00" # Default printer address
+//CONTROL_WRITE_UUID = "0000ae01-0000-1000-8000-00805f9b34fb" # Write characteristics for commands (printer control)
+//NOTIFY_UUID = "0000ae02-0000-1000-8000-00805f9b34fb"        # Notify characteristics for responses (printer status)
+//DATA_WRITE_UUID = "0000ae03-0000-1000-8000-00805f9b34fb"     # Write characteristics for bulk data (image/feed data)
 {
 	if (this->NAME_ARRAY_SIZE >= 6)
 	{
