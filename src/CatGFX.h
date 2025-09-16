@@ -10,16 +10,51 @@
 
 class CatPrinter: public Adafruit_GFX, public BLEAdvertisedDeviceCallbacks {
   public:
+	// these need to be MXW01 commands
     enum class Cmd {
-      REVERSE_FEED = 0xA0,
-      PAPER_FEED = 0xA1,
-      PRINT = 0xA2,
-      QUALITY = 0xA4,
-      LATTICE = 0xA6,
-      UPDATE = 0xA9,
-      ENERGY = 0xAF,
-      DRAWING_MODE = 0xBE,
-      PRINT_COMPRESSED = 0xBF
+      //REVERSE_FEED = 0xA0,
+      //PAPER_FEED = 0xA1,
+      //PRINT = 0xA2,
+      //QUALITY = 0xA4,
+      //LATTICE = 0xA6,
+      //UPDATE = 0xA9,
+      //ENERGY = 0xAF,
+      //DRAWING_MODE = 0xBE,
+      //PRINT_COMPRESSED = 0xBF
+
+      REVERSE_FEED = 0xA4, // this is paper_retract
+      //PAPER_FEED = 0xA1, //0xA1 Feed Paper - Data: Number of steps to go forward
+      //PRINT = 0xA2, //DataLine = 0xA2;  # Data: Line to draw. 0 bit -> don't draw pixel, 1 bit -> draw pixel
+      //QUALITY = 0xA4, //// 0xA4 Set quality 0x31-0x36 GB01 printer always 0x33, other 0x32?
+      //LATTICE = 0xA6,
+      //UPDATE = 0xA9,
+      //ENERGY = 0xAF,
+      //DRAWING_MODE = 0xBE,
+      //PRINT_COMPRESSED = 0xBF
+
+//https://github.com/amber-sixel/catprinter/blob/contrib/COMMANDS.md
+const uint8_t paperRetract = 0xA0;	// 0xA0 Retract Paper - Data: Number of steps to go backward
+const uint8_t paperFeed = 0xA1;		// 0xA1 Feed Paper - Data: Number of steps to go forward
+//const uint8_t  DataLine = 0xA2;  # Data: Line to draw. 0 bit -> don't draw pixel, 1 bit -> draw pixel
+const uint8_t getDevState = 0xA3; // 0xA3 Get Device State - data 0; reply is by notification
+const uint8_t setQuality = 0xA4; // 0xA4 Set quality 0x31-0x36 GB01 printer always 0x33, other 0x32?
+        GetStatus = 0xA1,
+        PrintIntensity = 0xA2,
+        EjectPaper = 0xA3,
+        RetractPaper = 0xA4,
+        QueryCount = 0xA7,
+        Print = 0xA9,
+        PrintComplete = 0xAA,
+        BatteryLevel = 0xAB,
+        CancelPrint = 0xAC,
+        PrintDataFlush = 0xAD,
+        UnknownAE = 0xAE,
+        GetPrintType = 0xB0,
+        GetVersion = 0xB1,
+        UnknownB2 = 0xB2,  // Something about "learn"? print_cmd("2221B2000100000000", "V5X") Also related to A3?
+        UnknownB3 = 0xB3   // Something about sign and encryption?
+
+
     };
 	CatPrinter(uint16_t h);
     ~CatPrinter() {
